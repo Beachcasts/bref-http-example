@@ -1,0 +1,20 @@
+service: app3
+
+provider:
+    name: aws
+    region: us-east-1
+    runtime: provided
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    website:
+        handler: index.php
+        description: 'This is a simple HTTP Function.'
+        layers:
+            - ${bref:layer.php-74-fpm}
+        events:
+            - http: 'ANY /'
+            - http: 'ANY /{proxy+}'
+
